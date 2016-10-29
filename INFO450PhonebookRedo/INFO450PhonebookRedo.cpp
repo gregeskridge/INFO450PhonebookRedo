@@ -22,26 +22,26 @@ public:
 
 PhoneBook::PhoneBook()
 {
-	strcpy(fullName, "");
-	strcpy(homePhone, "");
-	strcpy(mobilePhone, "");
+	strcpy_s(fullName, "");
+	strcpy_s(homePhone, "");
+	strcpy_s(mobilePhone, "");
 
 }
 
 void PhoneBook::entryPhoneBook(char fn[], char hp[], char mp[])
 {
-	strcpy(fullName, fn);
-	strcpy(homePhone, hp);
-	strcpy(mobilePhone, mp);
+	strcpy_s(fullName, fn);
+	strcpy_s(homePhone, hp);
+	strcpy_s(mobilePhone, mp);
 }
 
 void PhoneBook::displayPhoneBook()
 {
-	printf("----------------------------------------\n");
+	printf("-------------\n");
 	printf("Full Name:\n%s\n", fullName);
 	printf("Home Phone:\n%s\n", homePhone);
 	printf("Mobile Phone:\n%s\n", mobilePhone);
-	printf("----------------------------------------\n");
+	printf("-------------\n");
 }
 
 class EntryList
@@ -69,12 +69,12 @@ EntryList::EntryList()
 
 EntryList::~EntryList()
 {
-	delete EntryList;
+	delete myEntries;
 }
 
 void EntryList::setFileName(char f[])
 {
-	strcpy_s(filename, f);
+	strcpy_s(fileName, f);
 }
 
 void EntryList::addEntryToList(PhoneBook *p)
@@ -178,7 +178,32 @@ int main()
 	cout << "Any other key for Nope" << endl;
 	cin >> answer;
 
+	while (answer == 'Y' || answer == 'y')
+	{
+		cin.ignore();
+		cin.clear();
 
+		cout << "Enter a full name." << endl;
+		gets_s(fullName);
+		cout << "Enter " << fullName << "'s home phone number." << endl;
+		cout << "Please use the format (555) 555-5555.  Thank you." << endl;
+		gets_s(homePhone);
+		cout << "Enter " << fullName << "'s mobile phone number." << endl;
+		cout << "Please use the format (555) 555-5555.  Thank you." << endl;
+		gets_s(mobilePhone);
+
+		PhoneBook *myPhoneBook = new PhoneBook();
+		myPhoneBook->entryPhoneBook(fullName, homePhone, mobilePhone);
+		eList->addEntryToList(myPhoneBook);
+
+		cout << "Would you like to enter another wonderful person?" << endl;
+		cout << "Y for Yes or any other key for Nope Nope." << endl;
+		cin >> answer;
+	}
+
+	// This shows the list
+	eList->showEntryList();
+	eList->saveEntryList();
 
     return 0;
 }
