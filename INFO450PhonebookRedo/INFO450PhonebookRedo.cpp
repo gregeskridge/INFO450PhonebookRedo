@@ -179,7 +179,7 @@ int main()
 
 	else
 	{
-		cout << "Currently, there are " << eList->getEntryCount() << "entries." << endl;
+		cout << "Currently, there are " << eList->getEntryCount() << " entries in your phone book!" << endl;
 	}
 
 	cout << "Would you like to add a new entry to your phonebook?" << endl;
@@ -206,7 +206,7 @@ int main()
 		eList->addEntryToList(myPhoneBook);
 
 		cout << "Would you like to enter another wonderful person?" << endl;
-		cout << "Y for Yes or any other key for Nope Nope." << endl;
+		cout << "Y for Yes or any other key for Nope." << endl;
 		cin >> answer;
 	}
 
