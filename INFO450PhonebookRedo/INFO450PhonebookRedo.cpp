@@ -92,7 +92,16 @@ void EntryList::showEntryList()
 {
 	for (int i = 0; i < entryCount; i++)
 	{
+		cout << "Entry Number: " << i + 1 << endl;
 		myEntries[i]->displayPhoneBook();
+
+		if ((i + 1) % 5 == 0)
+		{
+			char answer;
+			cout << "Type any character and press Enter to continue" << endl;
+			cin >> answer;
+			cin.ignore();
+		}
 	}
 }
 
