@@ -118,14 +118,14 @@ int EntryList::saveEntryList()
 	for (int i = 0; i < entryCount; i++)
 	{
 		//// Does not print duplicate entries to the phone book
-		//for (int j = i - 1; j < entryCount; j++)
+		//if (i > 0)
 		//{
-		//	if (strcmp(myEntries[i]->fullName, myEntries[j]->fullName) == 0)
+		//	for (int j = 0; j < entryCount && j < i; j++)
 		//	{
-		//		delete myEntries[i]->fullName;
-		//		delete myEntries[i]->homePhone;
-		//		delete myEntries[i]->mobilePhone;
-		//		++i;
+		//		if (strcmp(myEntries[i]->fullName, myEntries[j]->fullName) == 0)
+		//		{
+		//			++i;
+		//		}
 		//	}
 		//}
 
@@ -186,7 +186,7 @@ int main()
 
 	//Read in any existing file
 	eList->readEntryList();
-	if (eList->getEntryCount() == 0 && eList->getEntryCount() < 100)
+	if (eList->getEntryCount() == 0 || eList->getEntryCount() < 100)
 	{
 		cout << "Currently, there are " << eList->getEntryCount() << " entries in your phone book!" << endl;
 
