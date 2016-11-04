@@ -107,15 +107,28 @@ void EntryList::showEntryList()
 
 int EntryList::saveEntryList()
 {
+	//ios::trunc by default, so this will make the string compare much easier.
 	ofstream output(fileName);
 	if (!output)
 	{
 		cout << "You definitely did something wrong." << endl;
 		return -1;
 	}
-
+	
 	for (int i = 0; i < entryCount; i++)
 	{
+		//// Does not print duplicate entries to the phone book
+		//for (int j = i - 1; j < entryCount; j++)
+		//{
+		//	if (strcmp(myEntries[i]->fullName, myEntries[j]->fullName) == 0)
+		//	{
+		//		delete myEntries[i]->fullName;
+		//		delete myEntries[i]->homePhone;
+		//		delete myEntries[i]->mobilePhone;
+		//		++i;
+		//	}
+		//}
+
 		output << myEntries[i]->fullName << "|";
 		output << myEntries[i]->homePhone << "|";
 		output << myEntries[i]->mobilePhone << endl;
@@ -161,6 +174,7 @@ int main()
 	char homePhone[20];
 	char mobilePhone[20];
 	char fileName[50];
+	EntryList *entryCount;
 
 	//Create a new PhoneBook object
 	EntryList *eList = new EntryList();
@@ -172,42 +186,43 @@ int main()
 
 	//Read in any existing file
 	eList->readEntryList();
-	if (eList->getEntryCount() == 0)
-	{
-		cout << "You've got yourself an empty list.  Commence to recording." << endl;
-	}
-
-	else
+	if (eList->getEntryCount() == 0 && eList->getEntryCount() < 100)
 	{
 		cout << "Currently, there are " << eList->getEntryCount() << " entries in your phone book!" << endl;
-	}
 
-	cout << "Would you like to add a new entry to your phonebook?" << endl;
-	cout << "Y for Yes" << endl;
-	cout << "Any other key for Nope" << endl;
-	cin >> answer;
-
-	while (answer == 'Y' || answer == 'y')
-	{
-		cin.ignore();
-		cin.clear();
-
-		cout << "Enter a full name." << endl;
-		gets_s(fullName);
-		cout << "Enter " << fullName << "'s home phone number." << endl;
-		cout << "Please use the format (555) 555-5555.  Thank you." << endl;
-		gets_s(homePhone);
-		cout << "Enter " << fullName << "'s mobile phone number." << endl;
-		cout << "Please use the format (555) 555-5555.  Thank you." << endl;
-		gets_s(mobilePhone);
-
-		PhoneBook *myPhoneBook = new PhoneBook();
-		myPhoneBook->entryPhoneBook(fullName, homePhone, mobilePhone);
-		eList->addEntryToList(myPhoneBook);
-
-		cout << "Would you like to enter another wonderful person?" << endl;
-		cout << "Y for Yes or any other key for Nope." << endl;
+		cout << "Would you like to add a new entry to your phonebook?" << endl;
+		cout << "Y for Yes" << endl;
+		cout << "Any other key for Nope" << endl;
 		cin >> answer;
+
+		while (answer == 'Y' || answer == 'y')
+		{
+			cin.ignore();
+			cin.clear();
+
+			cout << "Enter a full name." << endl;
+			gets_s(fullName);
+			cout << "Enter " << fullName << "'s home phone number." << endl;
+			cout << "Please use the format (555) 555-5555.  Thank you." << endl;
+			gets_s(homePhone);
+			cout << "Enter " << fullName << "'s mobile phone number." << endl;
+			cout << "Please use the format (555) 555-5555.  Thank you." << endl;
+			gets_s(mobilePhone);
+
+			PhoneBook *myPhoneBook = new PhoneBook();
+			myPhoneBook->entryPhoneBook(fullName, homePhone, mobilePhone);
+			eList->addEntryToList(myPhoneBook);
+
+			cout << "Would you like to enter another wonderful person?" << endl;
+			cout << "Y for Yes or any other key for Nope." << endl;
+			cin >> answer;
+		}
+	}
+	
+	else
+	{
+		cout << "I'm sorry, but this Phone Book is full.  Please create a new Phone Book file." << endl;
+		cout << "For your viewing pleasure, I will display the contents of the Phone Book that you requested." << endl;
 	}
 
 	// This shows the list
